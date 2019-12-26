@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <title>LeafLet</title>
+</head>
+<body>
+    <div id="map" style = "width: 1570px; height: 680px"></div>
+
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="L.TileLayer.BetterWMS.js"></script>
+
+    <script>
+      
+       // Creating map options
+      //  var mapOptions = {
+      //       center: [28.5502487,77.2676638],
+      //       zoom: 10,
+      //       attributionControl: false
+      //    }
+         
+         // var map = new L.map('map', mapOptions);    // Creating a map object
+         var map = L.map('map', {drawControl: true}).setView([28.5502487,77.2676638], 10);
+         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+         
+         // Creating a Layer object
+         // var layer = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+         // map.addLayer(layer); // Adding layer to the map
+
+         // add a point 
+         // var delhi_1 = new L.Marker([28.550058, 77.269592]).addTo(map);
+
+         // add a map name 
+         var attrOptions = {
+            prefix: 'Inspired by gis'
+         };
+         var attr = L.control.attribution(attrOptions);
+         attr.addTo(map);
+
+         // this function is used for aler latitude and longitude
+         //   function onMapClick(e) {
+         //       alert("You clicked the map at " + e.latlng);
+         //       }
+         //    map.on('click', onMapClick);
+
+         // this function is add point on map
+         // map.on("click", function(e){
+         //    new L.Marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+         // })
+
+
+      // ---- shown on leaflet --------
+      //   var lay = L.tileLayer.wms('http://localhost:8080/geoserver/sample_woks/wms',{
+      //       format: 'image/png',
+      //       transparent: true,
+      //       layers: "sample_woks:ind_roads,cities"
+      //    });
+      //    lay.addTo(map);
+            
+         // url will change depend upon which geoserver and create sample works database and host wms layers
+         var url = 'http://localhost:8080/geoserver/sample_woks/wms';
+         
+         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+         
+         L.tileLayer.betterWms(url, {
+         layers: 'sample_woks:ind_roads,cities',
+         transparent: true,
+         format: 'image/png'
+         }).addTo(map);
+         
+         
+    </script> 
+</body>
+
+</html>
